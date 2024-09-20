@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereum Price Prediction Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Ethereum Price Prediction Dashboard</h1>
+    
+    <!-- Prediction Form -->
+    <form method="POST">
+        <label for="prediction_type">Choose Prediction Type:</label>
+        <select name="prediction_type" id="prediction_type" required>
+            <option value="daily">Daily</option>
+            <option value="yearly">Yearly</option>
+        </select>
+        <button type="submit">Predict</button>
+    </form>
+
+    <!-- Display Prediction Values -->
+    {% if prediction %}
+        <h2>Predicted Ethereum Values</h2>
+        <ul>
+            {% for value in prediction %}
+                <li>{{ value }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Display the Graph -->
+    {% if graph_url %}
+        <h2>Price Prediction Graph</h2>
+        <img src="{{ graph_url }}" alt="Ethereum Prediction Graph">
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
