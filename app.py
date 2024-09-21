@@ -16,6 +16,8 @@ if not os.path.exists('static'):
 def index():
     prediction = None
     graph_url = None
+    daily_data = []
+    yearly_data = []
 
     if request.method == 'POST':
         # Get user input: daily or yearly prediction
@@ -24,8 +26,10 @@ def index():
         # Get the corresponding predictions
         if prediction_type == 'daily':
             prediction = daily_predictions
+            daily_data = prediction  # Assign daily predictions
         elif prediction_type == 'yearly':
             prediction = yearly_predictions
+            yearly_data = prediction  # Assign yearly predictions
 
         # Plot the graph based on the predictions
         filename = f'static/eth_prediction.png'
@@ -34,7 +38,7 @@ def index():
         # Pass the graph URL to the template
         graph_url = filename
 
-    return render_template('index.html', prediction=prediction, graph_url=graph_url)
+    return render_template('index.html', prediction=prediction, graph_url=graph_url, daily_data=daily_data, yearly_data=yearly_data)
 
 def plot_graph(data, prediction_type, filename):
     """Plot the graph and save it to the static folder"""
